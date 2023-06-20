@@ -32,7 +32,7 @@ func (b *Book) Trade() {
 	heap.Init(sellOrders)
 
 	for order := range b.OrdersChan {
-		if order.OrderType == "BUY" {
+		if order.OrderType == BUY {
 			buyOrders.Push(order)
 			if sellOrders.Len() > 0 && sellOrders.Orders[0].Price <= order.Price {
 				sellOrder := sellOrders.Pop().(*Order)
@@ -48,7 +48,7 @@ func (b *Book) Trade() {
 					}
 				}
 			}
-		} else if order.OrderType == "SELL" {
+		} else if order.OrderType == SELL {
 			sellOrders.Push(order)
 			if buyOrders.Len() > 0 && buyOrders.Orders[0].Price >= order.Price {
 				buyOrder := buyOrders.Pop().(*Order)
