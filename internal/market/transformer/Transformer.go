@@ -31,11 +31,11 @@ func TransformOutput(order *entity.Order) *dto.OrderOutput {
 	for _, t := range order.Transactions {
 		transactionOutput := &dto.TransactionOutput{
 			TransactionId: t.ID,
-			BuyerId:       t.BuyingOrder.ID,
-			SellerId:      t.SellingOrder.ID,
+			BuyerId:       t.BuyingOrder.Investor.ID,
+			SellerId:      t.SellingOrder.Investor.ID,
 			AssetId:       t.SellingOrder.Asset.ID,
 			Price:         t.Price,
-			Shares:        t.Shares,
+			Shares:        t.SellingOrder.Shares - t.SellingOrder.PendingShares,
 		}
 		transactionsOutput = append(transactionsOutput, transactionOutput)
 	}
